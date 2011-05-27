@@ -18,37 +18,44 @@ class GildedRose
   #Update this method
   def update_quality
     list = @items.reject { |item| item.name =~ /Sulfuras, Hand of Ragnaros/ }
-    list.reject! { |item| item.quality >= 50 }
    
     list.each do |item|
       case item.name
       when  /Brie/i
-        updateable?(item.quality, 1) ? item.quality = 50 : item.quality += 1
+        set_quality(item, 1)
       when /backstage passes/i
-        case item.sell_in
-        when 0
+        case
+        when item.sell_in <= 0
           item.quality = 0
-        when 1...5
-          updateable?(item.quality, 3) ? item.quality = 50 : item.quality += 3
-        when 6...10
-          updateable?(item.quality, 2) ? item.quality = 50 : item.quality += 2
+        when item.sell_in <= 5
+          set_quality(item, 3)
+        when item.sell_in <= 10
+          set_quality(item, 2)
         else
-          updateable?(item.quality, 1) ? item.quality = 50 : item.quality += 1
+          set_quality(item, 1)
         end
       when /conjured/i
-        case item.sell_in
+        case
         when item.sell_in <= 0
-          item.quality -= 4
+          set_quality(item, -4)
         else
-          item.quality -= 2
+          set_quality(item, -2)
         end
       else
-        item.quality -= 1
+        item.sell_in < 0 ? set_quality(item, -2) : set_quality(item, -1)
       end
+      item.sell_in -= 1
     end
   end
 
-  def updateable?(item_value, tickv)
-    item_value + tickv >= 50
+  def set_quality(item, tickv)
+    item.quality = case
+    when (item.quality + tickv >= 50)
+      50
+    when (item.quality + tickv <= 0)
+      0
+    else
+      item.quality + tickv
+    end
   end
 end

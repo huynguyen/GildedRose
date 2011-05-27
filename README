@@ -1,3 +1,13 @@
+=== Debrief ===
+
+This is my first solution for the GildedRose kata. We had discussed this at svruby meetup and I got a chance to see how other people approached the problem. I feel that my solution is clunkier than what most people did which was to subclass the items. I had thought of that but was under the impression that the constraints only allowed for us to modify the update_quality method based on the skeleton gilded_rose.rb. Because I'm a stickler for rules I didn't want to change the initializer and recreate the items as a subclass. 
+
+Item.new("Sulfuras", 0, 80) to Legendary.new("Sulfuras", 0, 80)
+
+Anyways that aside it was a good chance to figure out rspec2 a little more since I'm not too knowledgable on it. I struggled with the interface because I knew what I wanted to do but wasn't familiar with the rspec2 way of doing it. I liked the whole idea of setting up context and the output of it is pretty. Probably the coolest thing in this project for me is my use of watchr which allow for autotesting on change since I had played with autotester before and that was horrible.
+
+
+=== Original Problem Statement ===
 If you want to get cracking on the ruby source then do this:
 git clone git@github.com:professor/GildedRose.git
 

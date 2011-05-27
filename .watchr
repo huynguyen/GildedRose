@@ -4,7 +4,7 @@ def run_spec(file)
     return
   end
   puts "Running #{file}"
-  system "rspec #{file}"
+  system "rspec #{file} --color --format doc"
   puts
 end
 
